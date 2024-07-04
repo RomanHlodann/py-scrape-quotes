@@ -83,15 +83,15 @@ def get_quotes() -> [Quote]:
 
     quotes = get_single_page_quotes(soup)
 
-    i = 2
+    page_num = 2
     while soup.select_one(".next"):
-        new_url = urljoin(BASE_URL, f"/page/{i}")
+        new_url = urljoin(BASE_URL, f"/page/{page_num}")
         page = requests.get(new_url).content
         soup = BeautifulSoup(page, "html.parser")
 
         quotes.extend(get_single_page_quotes(soup))
 
-        i += 1
+        page_num += 1
 
     return quotes
 
